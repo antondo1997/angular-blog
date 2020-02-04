@@ -1,1 +1,20 @@
-<p>create-page works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1>Create new post</h1>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+  >
+    <label for="title">Post title:</label>
+    <input type="text" id="title" formControlName="title">
+    <div
+      *ngIf="form.get('title').touched && form.get('title').invalid"
+      class="validation"
+    >
+      <small *ngIf="form.get('title').errors.required">Enter email</small>
+<!--      <small *ngIf="form.get('title').errors.email">Enter email correctly</small>-->
+    </div>
+  </div>
+
+
+</form>
