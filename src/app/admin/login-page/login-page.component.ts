@@ -23,13 +23,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.auth.isAuthenticated()) {
-    //   this.router.navigate(['/admin', 'dashboard']);
-    // }
+    if (this.auth.isAuthenticated()) {
+      this.router.navigate(['/admin', 'dashboard']);
+    }
     this.route.queryParams
       .subscribe((params) => {
           if (params.loginAgain) {
-            this.message = 'Enter data!!';
+            this.message = 'You have no access to Administrator! Please sign in!!';
+          } else if (params.authFailed) {
+            this.message = 'Session has expired! Please sign in again!!';
           }
         }
       );
@@ -64,7 +66,7 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['/admin', 'dashboard']);
       this.submitted = false;
     }, error => {
-      // console.log(error);
+      console.log('Sign in ERROR:', error);
       this.submitted = false;
     }, () => {
       console.log('Firebase loading done');

@@ -11,10 +11,54 @@
       *ngIf="form.get('title').touched && form.get('title').invalid"
       class="validation"
     >
-      <small *ngIf="form.get('title').errors.required">Enter email</small>
-<!--      <small *ngIf="form.get('title').errors.email">Enter email correctly</small>-->
+      <small *ngIf="form.get('title').errors.required">Enter title</small>
+      <!--      <small *ngIf="form.get('title').errors.email">Enter email correctly</small>-->
     </div>
   </div>
 
+  <div class="form-control">
+    <label>Post content:</label>
+    <quill-editor formControlName="content"></quill-editor>
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('author').touched && form.get('author').invalid}"
+  >
+    <label for="author">Post author:</label>
+    <input type="text" id="author" formControlName="author">
+    <div
+      *ngIf="form.get('author').touched && form.get('author').invalid"
+      class="validation"
+    >
+      <small *ngIf="form.get('author').errors.required">Enter author</small>
+      <!--      <small *ngIf="form.get('title').errors.email">Enter email correctly</small>-->
+    </div>
+  </div>
+
+<!--  <div-->
+<!--    class="form-control"-->
+<!--    [ngClass]="{invalid: form.get('content').touched && form.get('content').invalid}"-->
+<!--  >-->
+<!--    <label for="title">Post content:</label>-->
+<!--&lt;!&ndash;    <input type="text" id="content" formControlName="content">&ndash;&gt;-->
+<!--    <textarea-->
+<!--      name="" id="content" cols="30" rows="10"-->
+<!--      formControlName="content"-->
+<!--    ></textarea>-->
+<!--    <div-->
+<!--      *ngIf="form.get('content').touched && form.get('content').invalid"-->
+<!--      class="validation"-->
+<!--    >-->
+<!--      <small *ngIf="form.get('content').errors.required">Enter content</small>-->
+<!--      &lt;!&ndash;      <small *ngIf="form.get('title').errors.email">Enter email correctly</small>&ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <button
+    type="submit"
+    class="btn btn-block btn-dark"
+    [disabled]="form.invalid"
+  >Create post</button>
 
 </form>
