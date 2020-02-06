@@ -10,6 +10,8 @@ import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from './shared/services/auth.guard';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import { AlertService } from './shared/services/alert.service';
 
 const adminRoutes: Routes = [
   {
@@ -25,7 +27,14 @@ const adminRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AdminLayoutComponent, LoginPageComponent, DashboardPageComponent, CreatePageComponent, EditPageComponent],
+  declarations: [
+    AdminLayoutComponent,
+    LoginPageComponent,
+    DashboardPageComponent,
+    CreatePageComponent,
+    EditPageComponent,
+    AlertComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,7 +43,7 @@ const adminRoutes: Routes = [
     RouterModule.forChild(adminRoutes)
   ],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard, AlertService]
 })
 export class AdminModule {
 }

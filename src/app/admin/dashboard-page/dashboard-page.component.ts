@@ -3,6 +3,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { PostsService } from '../../shared/posts.service';
 import { Post } from '../../shared/interfaces';
 import { Subscription } from 'rxjs';
+import { AlertService } from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -13,9 +14,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   posts: Post[] = [];
   postsSub: Subscription;
+  removeSub: Subscription;
+  searchStr = '';
 
   constructor(
-    private postsService: PostsService
+    private postsService: PostsService,
+    private alert: AlertService
   ) {
   }
 
@@ -23,7 +27,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.postsSub = this.postsService.getAll().subscribe(posts => {
       // console.log(posts);
       this.posts = posts;
-      console.log('Posts:', this.posts);
+      // console.log('Posts:', this.posts);
+    });
+  }
+
+  removePost(id: string) {
+    this.removeSub = this.postsService.remove(id).subscribe(() => {
+      this.posts = this.posts.filter(post => post.id !== id);
+      this.alert.warning('Post has been deleted!');
     });
   }
 
@@ -31,9 +42,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if (this.postsSub) {
       this.postsSub.unsubscribe();
     }
-  }
-
-  removePost(id: string) {
-
+    if (this.removeSub) {
+      this.removeSub.unsubscribe();
+    }
   }
 }
